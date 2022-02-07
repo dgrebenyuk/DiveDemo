@@ -1,5 +1,7 @@
 <p style="color: green"><%= notice %></p>
-
+<div class='text-right'>
+  <%= select_tag :timeline, options_from_collection_for_select(@timelines, 'id', 'name') %>
+</div>
 <h1>Devices</h1>
 
 <div id="devices">

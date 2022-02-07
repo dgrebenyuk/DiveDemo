@@ -16,3 +16,6 @@ Device.destroy_all
     )
   end
 end
+
+Timeline.destroy_all
+5.times { Timeline.create(name: Faker::Ancient.god) }
