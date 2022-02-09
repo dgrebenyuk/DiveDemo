@@ -38,7 +38,7 @@ class CamerasController < ApplicationController
   def update
     respond_to do |format|
       if @camera.update(camera_params)
-        format.html { redirect_to camera_url(@camera), notice: "Camera was successfully updated." }
+        format.html { redirect_to devices_path, notice: "Camera was successfully updated." }
         format.json { render :show, status: :ok, location: @camera }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class CamerasController < ApplicationController
     @camera.destroy
 
     respond_to do |format|
-      format.html { redirect_to cameras_url, notice: "Camera was successfully destroyed." }
+      format.html { redirect_to devices_path, notice: "Camera was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -65,6 +65,6 @@ class CamerasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def camera_params
-      params.fetch(:camera, {})
+      params.require(:camera).permit(:name, :username, :password, :status)
     end
 end

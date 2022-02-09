@@ -5,6 +5,11 @@ class DevicesController < ApplicationController
   def index
     @devices = Device.all.includes(:cameras)
     @timelines = Timeline.all
+
+    respond_to do |format|
+      format.html
+      format.csv
+    end
   end
 
   # GET /devices/1 or /devices/1.json
