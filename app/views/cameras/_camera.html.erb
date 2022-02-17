@@ -6,6 +6,6 @@
   <td>
     <%= link_to 'Edit', edit_camera_path(camera) %>
     &nbsp;
-    <%= link_to 'Destroy', camera_path(camera), method: :delete, remote: true, data: { confirm: 'Are you sure?' } %>
+    <%= link_to 'Destroy', camera_path(camera), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
   </td>
 </tr>

@@ -1,6 +1,6 @@
 Device.destroy_all
 
-2.times do
+50.times do
   device = Device.create(
     ip: Faker::Internet.private_ip_v4_address,
     netmask: '24',

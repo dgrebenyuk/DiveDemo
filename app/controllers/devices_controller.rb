@@ -1,14 +1,26 @@
 class DevicesController < ApplicationController
+  include ActionController::Live
+
   before_action :set_device, only: %i[ show edit update destroy ]
 
   # GET /devices or /devices.json
   def index
-    @devices = Device.all.includes(:cameras)
-    @timelines = Timeline.all
+    @devices = Device.all.includes(:cameras).load_async
+    @timelines = Timeline.all.load_async
 
     respond_to do |format|
       format.html
-      format.csv
+      format.csv do
+        send_stream(filename: 'devices.csv') do |stream|
+          stream.write "ip,vendor\n"
+          @devices.find_in_batches(batch_size: 5) do |devices|
+            devices.each do |device|
+              stream.write "#{device.ip},#{device.vendor}\n"
+            end
+            sleep 0.5
+          end
+        end
+      end
     end
   end
 
